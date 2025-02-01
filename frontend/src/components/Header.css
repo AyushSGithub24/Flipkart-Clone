@@ -1,0 +1,111 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2874f0;
+    padding: 10px 20px;
+    color: white;
+    z-index: 100;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .logo-text {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .explore-text {
+    color: white;
+  }
+  
+  .plus-text {
+    color: yellow;
+  }
+  
+  .plus-icon {
+    margin-left: 5px;
+  }
+  
+  .search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+    display: flex;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+  }
+  
+  .search-button {
+    background-color: #fff;
+    color: #2874f0;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    padding: 0 10px;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-item {
+    position: relative;
+  }
+ 
+  
+  .nav-button {
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    color: #2874f0;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    min-width: 150px;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dropdown-menu ul li {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+
+  .cart {
+    display: flex;
+    align-items: center;
+  }
+  

@@ -3,21 +3,6 @@ require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-// // Serialize user: Store user ID in the session
-// passport.serializeUser((user, done) => {
-//   done(null, user._id); // Use user._id if that's the MongoDB default
-// });
-
-// // Deserialize user: Fetch user from the database using the ID in the session
-// passport.deserializeUser(async (id, done) => {
-//   try {
-//     const user = await userModel.findById(id); // Await the database query
-//     done(null, user); // Pass user object to req.user
-//   } catch (err) {
-//     done(err, null); // Pass error if any
-//   }
-// });
-
 // Google OAuth Strategy
 passport.use(
   new GoogleStrategy(

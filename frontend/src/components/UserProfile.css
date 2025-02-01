@@ -1,0 +1,200 @@
+.body {
+    display: flex;
+    min-height: 90vh;
+    background-color: #f5f5f5;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background: white;
+    padding: 24px;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .greeting {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .username {
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .nav-section {
+    margin-bottom: 16px;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .nav-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .nav-item.active {
+    color: #2196f3;
+  }
+  
+  .sub-nav {
+    margin-left: 32px;
+  }
+  
+  .sub-nav a {
+    display: block;
+    padding: 8px 10px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .sub-nav a:hover {
+    color: #2196f3;
+  }
+  
+  .sub-nav a.active {
+    color: #2196f3;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 24px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 800px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .edit-button {
+    background: none;
+    border: none;
+    color: #2196f3;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+  
+  .edit-button:hover {
+    color: #1976d2;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .form-field label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .form-field input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .faq-section {
+    margin-top: 32px;
+  }
+  
+  .faq-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .faq-item h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .faq-item p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .address-form-container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 60px;
+
+  }
+
+  .delete-button{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+  }

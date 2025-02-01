@@ -1,0 +1,87 @@
+.login-form {
+    display: flex;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-info {
+    background-color: #2874f0;
+    color: white;
+    padding: 40px;
+    flex: 1;
+  }
+  
+  .login-info h1 {
+    font-size: 28px;
+  }
+  
+  .login-info p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .login-image {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+  
+  form {
+    flex: 1;
+    padding: 40px;
+    background-color: white;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  
+  .terms {
+    font-size: 12px;
+    color: #878787;
+    margin-bottom: 20px;
+  }
+  
+  form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fb641b;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  .create-account {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #2874f0;
+    text-decoration: none;
+  }
+  .forget{
+    display: block;
+    color: #2874f0;
+    text-decoration: none;
+  }
+  .google-btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    background: #fb641b;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .google-btn:hover {
+    background: #c23321;
+  }
+  

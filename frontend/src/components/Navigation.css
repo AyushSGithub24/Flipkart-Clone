@@ -1,0 +1,31 @@
+.category-nav {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .category-nav ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+  }
+  
+  .category-nav li {
+    white-space: nowrap;
+  }
+  
+  .category-nav button {
+    padding: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .category-nav button:hover {
+    color: #2874f0;
+  }
+  
+  

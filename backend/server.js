@@ -1,7 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
+const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
 const PORT = 3000;
@@ -10,54 +12,65 @@ const passportSetup = require("./config/passport-setup");
 const { router } = require("./routes/userRoutes");
 const { Googlerouter } = require("./routes/authRoutes");
 const { userModel } = require("./db");
+const { generateAccessToken, generateRefreshToken } = require("./token");
 async function main() {
   const app = express();
   // Middleware setup
   app.use(express.static(path.join(__dirname, "public")));
   app.use(express.urlencoded({ extended: true }));
-  app.use(express.json()); // Added to parse JSON in body
-
+  // Allow requests from specific origin (frontend)
   app.use(
-    session({
-      secret: process.env.CookieSecret,
-      resave: false, // Don't save session if unmodified
-      saveUninitialized: true, // Save session even if uninitialized
+    cors({
+      origin: "http://localhost:5173", // Frontend URL
+      methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+      credentials: true, // Allow cookies or authorization headers
     })
   );
-
+  app.use(express.json()); // Added to parse JSON in body
+  // Middleware to parse cookies
+  app.use(cookieParser());
   app.use("/auth", Googlerouter);
   app.use("/", router);
   //google Callback route
+  // Google Callback route
   app.get(
     "/google/redirect",
     passport.authenticate("google", {
-      session: false,
-      failureRedirect: "/login",
+      session: false, // Disable session since we are using JWT tokens
+      failureRedirect: "/login", // Redirect here if authentication fails
     }),
-    (req, res) => {
-      const token = jwt.sign(
-        { userId: req.user._id, email: req.user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
+    async (req, res) => {
+      try {
+        // Generate JWT access token
+        const user = req.user;
+        const accessToken = generateAccessToken(user);
+        // Generate JWT refresh token
 
-      res.json({ message: "Login successful", token });
+        const refreshToken = generateRefreshToken(user);
+
+        // Store the refresh token in the database (or Redis)
+        user.refreshToken = refreshToken;
+        await user.save();
+
+        // Set the refresh token as an HTTP-only cookie
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+          sameSite: "strict",
+          path: "/refresh-token",
+        });
+
+        // Redirect the user to the frontend with the access token as part of the URL
+        // Optionally, you can also append the token to the frontend URL as a query parameter
+        res.redirect(`http://localhost:5173/oauth/?accessToken=${accessToken}`);
+      } catch (err) {
+        console.error("Error during Google OAuth:", err);
+        res
+          .status(500)
+          .json({ message: "Error generating tokens", error: err.message });
+      }
     }
   );
-
-  // Protected Route
-  app.get("/protected", authenticateToken, async (req, res) => {
-    const { userId } = req;
-    const user = await userModel.findOne({ _id: userId });
-    if (user) {
-      console.log("found" + user);
-      let { email, name } = user;
-      console.log(email + " " + name);
-    } else {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.json({ message: "Access granted", user });
-  });
 
   //connect DB
   await mongoose
@@ -73,19 +86,5 @@ async function main() {
     console.log(`Server running at port ${PORT}`);
   });
 }
-function authenticateToken(req, res, next) {
-  let token = req.headers.token;
-  if (!token) return res.status(401).json({ message: "No token provided" });
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  console.log("decoded=" + decoded);
 
-  if (decoded) {
-    req.userId = decoded.userId;
-    next();
-  } else {
-    res.status(403).json({
-      message: "you are not signed in",
-    });
-  }
-}
 main();

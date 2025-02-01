@@ -1,0 +1,134 @@
+.login-form {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.login-info {
+  background-color: #2874f0;
+  color: white;
+  padding: 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-info h1 {
+  font-size: 28px;
+  margin: 0;
+  color: white;
+}
+
+.login-info p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.login-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+form {
+  flex: 1;
+  padding: 40px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.terms {
+  font-size: 12px;
+  color: #878787;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #fb641b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #e25a15;
+}
+
+.create-account {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #2874f0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.create-account:hover {
+  text-decoration: underline;
+}
+
+.google-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  color: white;
+  background: #fb641b;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.google-btn:hover {
+  background: #c23321;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-form {
+      flex-direction: column;
+  }
+
+  .login-info {
+      padding: 30px;
+  }
+
+  form {
+      padding: 30px;
+  }
+}
