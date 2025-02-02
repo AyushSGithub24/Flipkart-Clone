@@ -77,7 +77,6 @@ function Forgot() {
 function VerifyOTP({ email, setHideVerify, setHideReset }) {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -118,17 +117,49 @@ function ResetPassword({ email }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [er,setEr]=useState("")
+  function validatePassword(password) {
+    const errors = [];
+    if (password.length < 8) {
+        errors.push("Password must be at least 8 characters");
+    } 
+    if (password.length > 20) {
+        errors.push("Password must be less than 20 characters");
+    } 
+    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+        errors.push("Password must contain at least one special character");
+    }
+    if (!/[a-z]/.test(password)) {
+        errors.push("Password must contain at least one lowercase letter");
+    }
+    if (!/[A-Z]/.test(password)) {
+        errors.push("Password must contain at least one uppercase letter");
+    }
+    if (!/[0-9]/.test(password)) {
+        errors.push("Password must contain at least one number");
+    }
+
+    return errors.length ? errors : "Password is valid";
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    
     try {
+      if(confirmPassword!==newPassword){
+        alert("Passwords don't match")
+      } 
+      setEr("")
+      let k=validatePassword(confirmPassword)
+      setEr(k)
+      if(k!='Password is valid'){
+      }else{
+      setLoading(true);
       const res = await fetch("http://localhost:3000/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, newPassword, confirmPassword }),
       });
-      
       if (res.ok) {
         alert("Password reset successful! Redirecting to login...");
         navigate("/login");
@@ -136,6 +167,7 @@ function ResetPassword({ email }) {
         const data = await res.json();
         alert(data.message);
       }
+    }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -147,6 +179,7 @@ function ResetPassword({ email }) {
       <div>
         <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
         <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        {er && <p className="error-message">{er[0]}</p>}
         <button type="submit" disabled={loading}>{loading ? "Resetting..." : "Reset Password"}</button>
       </div>
     </form>

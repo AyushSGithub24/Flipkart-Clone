@@ -11,7 +11,8 @@ const jwt = require("jsonwebtoken");
 const passportSetup = require("./config/passport-setup");
 const { router } = require("./routes/userRoutes");
 const { Googlerouter } = require("./routes/authRoutes");
-const { userModel } = require("./db");
+const { productRouter}=require("./routes/productRoutes")
+const { userModel,productModel } = require("./db");
 const { generateAccessToken, generateRefreshToken } = require("./token");
 async function main() {
   const app = express();
@@ -29,9 +30,10 @@ async function main() {
   app.use(express.json()); // Added to parse JSON in body
   // Middleware to parse cookies
   app.use(cookieParser());
-  app.use("/auth", Googlerouter);
+  //user route
   app.use("/", router);
   //google Callback route
+  app.use("/auth", Googlerouter);
   // Google Callback route
   app.get(
     "/google/redirect",
@@ -71,7 +73,7 @@ async function main() {
       }
     }
   );
-
+  app.use("/product",productRouter)
   //connect DB
   await mongoose
     .connect(process.env.MONGO_URI)
@@ -81,10 +83,13 @@ async function main() {
     .catch((err) => {
       console.error("Database connection failed:", err);
     });
+
   //start the server
   app.listen(PORT, () => {
     console.log(`Server running at port ${PORT}`);
   });
 }
+
+
 
 main();

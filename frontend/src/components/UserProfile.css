@@ -1,6 +1,8 @@
 .body {
     display: flex;
     min-height: 90vh;
+    justify-content: center;
+    width: 100%;
     background-color: #f5f5f5;
   }
   
@@ -39,7 +41,7 @@
     margin-bottom: 16px;
   }
   
-  .nav-item {
+  .nav-items {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -49,11 +51,11 @@
     border-radius: 4px;
   }
   
-  .nav-item:hover {
+  .nav-items:hover {
     background-color: #f5f5f5;
   }
   
-  .nav-item.active {
+  .nav-items.active {
     color: #2196f3;
   }
   

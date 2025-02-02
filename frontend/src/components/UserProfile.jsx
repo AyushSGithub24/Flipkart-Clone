@@ -32,7 +32,7 @@ export default function UserProfile() {
           <div className="nav-section">
             <Link
               to="#orders"
-              className={`nav-item ${activeTab === "orders" ? "active" : ""}`}
+              className={`nav-items ${activeTab === "orders" ? "active" : ""}`}
               onClick={() => setActiveTab("orders")}
             >
               <span>📦</span>
@@ -42,9 +42,9 @@ export default function UserProfile() {
 
           <div className="nav-section">
             <Link
-              to="#settings"
-              className={`nav-item ${activeTab === "settings" ? "active" : ""}`}
-              onClick={() => setActiveTab("settings")}
+              to="#profile"
+              className={`nav-items ${activeTab === "profile" ? "active" : ""}`}
+              onClick={() => setActiveTab("profile")}
             >
               <span>👤</span>
               ACCOUNT SETTINGS
