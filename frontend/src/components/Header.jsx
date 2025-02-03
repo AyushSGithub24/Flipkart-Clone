@@ -91,7 +91,6 @@ const PlusImage = styled('img')({
               </Box>
             </div>
           </div>
-
           {/* Navigation Buttons */}
           <nav className="nav-buttons">
             {/* Profile Section */}
@@ -132,6 +131,9 @@ const PlusImage = styled('img')({
                   "font-size": "16px",
                   fontWeight: 600,
                   width: "120px",
+                }}
+                onClick={()=>{
+                  navigate("/seller")
                 }}
               >
                 Become a Seller

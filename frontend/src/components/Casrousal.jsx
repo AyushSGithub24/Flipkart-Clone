@@ -33,21 +33,40 @@ const Carousel = () => {
   };
 
   return (
-    <div className="carousel">
-      <button className="carousel-button prev" onClick={goToPrevious}>
-        &lt;
-      </button>
-      <div className="carousel-image-wrapper">
-        <img
-          src={images[currentIndex]}
-          alt={`Slide ${currentIndex + 1}`}
-          className="carousel-image"
-        />
-      </div>
-      <button className="carousel-button next" onClick={goToNext}>
-        &gt;
-      </button>
+    <div className="relative flex flex-col items-center w-full">
+    {/* Image Display */}
+    <div
+      className="w-full h-[250px] bg-cover bg-center rounded-lg shadow-lg transition-all duration-500"
+      style={{ backgroundImage: `url(${images[currentIndex]})` }}
+    ></div>
+
+    {/* Navigation Buttons */}
+    <button
+      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition"
+      onClick={goToPrevious}
+    >
+      &lt;
+    </button>
+    <button
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition"
+      onClick={goToNext}
+    >
+      &gt;
+    </button>
+
+    {/* Dot Indicators */}
+    <div className="flex mt-4 space-x-2">
+      {images.map((_, index) => (
+        <div
+          key={index}
+          className={`h-2 w-2 rounded-full ${
+            index === currentIndex ? "bg-[#2874f0] w-3" : "bg-gray-300"
+          } transition-all`}
+        ></div>
+      ))}
     </div>
+  </div>
+
   );
 };
 

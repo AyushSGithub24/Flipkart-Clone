@@ -10,6 +10,7 @@ import MyProfile from "./Routes/MyProfile";
 import "./App.css";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import ForgotPassword from "./Routes/forgotPassword";
+import Seller from "./Routes/Seller";
 function App() {
   return (
     <div className="App">
@@ -24,6 +25,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/account" element={<MyProfile />} />
             </Route>
+            <Route path="/seller" element={<Seller/>}  />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>
