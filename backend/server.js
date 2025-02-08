@@ -12,7 +12,8 @@ const passportSetup = require("./config/passport-setup");
 const { router } = require("./routes/userRoutes");
 const { Googlerouter } = require("./routes/authRoutes");
 const { productRouter}=require("./routes/productRoutes")
-const { userModel,productModel } = require("./db");
+const {sellerRouter}=require("./routes/sellerRoutes")
+const { userModel,productModel,sellerModel } = require("./db");
 const { generateAccessToken, generateRefreshToken } = require("./token");
 async function main() {
   const app = express();
@@ -74,6 +75,7 @@ async function main() {
     }
   );
   app.use("/product",productRouter)
+  app.use("/seller",sellerRouter);
   //connect DB
   await mongoose
     .connect(process.env.MONGO_URI)

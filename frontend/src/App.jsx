@@ -10,12 +10,15 @@ import MyProfile from "./Routes/MyProfile";
 import "./App.css";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import ForgotPassword from "./Routes/forgotPassword";
-import Seller from "./Routes/Seller";
+import Seller from "./Routes/Seller"; 
+import SellerCreateAccount from "./components/Seller/SellerCreateAccount";
+import { SellerAuthProvider } from "./Contexts/SellerAuthContext";
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <AuthProvider>
+          <SellerAuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -26,8 +29,10 @@ function App() {
               <Route path="/account" element={<MyProfile />} />
             </Route>
             <Route path="/seller" element={<Seller/>}  />
+            <Route path="/seller/register" element={<SellerCreateAccount/>}></Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          </SellerAuthProvider>
         </AuthProvider>
       </BrowserRouter>
     </div>

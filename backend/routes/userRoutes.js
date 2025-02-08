@@ -91,9 +91,7 @@ router.post("/login", async (req, res) => {
     // Optionally store the refresh token in the database (or Redis)
     user.refreshToken = refreshToken;
     await user.save();
-
     // Send the access token and set the refresh token in the cookie
-
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Use HTTPS in production

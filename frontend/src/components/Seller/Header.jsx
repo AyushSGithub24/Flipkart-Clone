@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
+import React, { useState } from 'react'; // Import useState
+import LoginDialog from "./SellerLogin";
+import { Button } from '@mui/material';
 function Header() {
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
     return (
       <>
         <header className="bg-white shadow-sm " style={{height:'60px',alignContent:"center"}}>
@@ -52,12 +64,13 @@ function Header() {
               </nav>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="#" className="text-gray-700 hover:text-flipkart-blue">
-                Login
-              </a>
-              <a href="#" className="bg-[#FFE11C] text-black px-6 py-2 font-medium hover:bg-yellow-300">
+              <div  className="text-gray-700 hover:text-flipkart-blue">
+              <Button variant="contained" onClick={handleOpen}>Login</Button>
+              <LoginDialog open={open} onClose={handleClose} />
+              </div>
+              <Link to="/seller/register" className="bg-[#FFE11C] text-black px-6 py-2 font-medium hover:bg-yellow-300">
                 Start Selling
-              </a>
+              </Link>
             </div>
           </div>
         </header>
