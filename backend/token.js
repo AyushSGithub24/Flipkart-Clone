@@ -4,7 +4,7 @@ function generateAccessToken(user){
     return  jwt.sign(
         { userId: user._id,userName:user.name},
         process.env.JWT_SECRET,
-        { expiresIn: "5m" } // Access token expires in 15 minutes
+        { expiresIn: "15m" } // Access token expires in 15 minutes
       );
 }
 const generateRefreshToken=(user)=> jwt.sign(

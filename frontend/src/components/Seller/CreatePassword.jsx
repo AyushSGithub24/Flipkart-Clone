@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function CreatePassword({value}) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const {setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,setGstin}=value;
+  const {setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,name,setGstin}=value;
   const [errors, setErrors] = useState({}); 
   const navigate=useNavigate();
   const handleSubmit = async (e) => {
@@ -15,7 +15,7 @@ export function CreatePassword({value}) {
       alert("Passwords do not match!");
       return;
     }
-    const formData = { mobile, email, category, gstin,password };
+    const formData = { mobile, email, category, gstin,password ,name};
     try {
       const response = await fetch("http://localhost:3000/seller/register", {
         method: "POST",
@@ -27,7 +27,7 @@ export function CreatePassword({value}) {
 
       const data = await response.json();
       if (response.ok) {
-        navigate("/seller/login")
+        navigate("/seller")
         alert("Register successfully!");
       } else {
         console.log("Registration failed:", data);

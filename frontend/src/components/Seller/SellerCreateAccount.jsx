@@ -11,7 +11,8 @@ function SellerCreateAccount() {
     const [mobile, setMobile] = useState("");
     const [email, setEmail] = useState("");
     const [gstin, setGstin] = useState("");
-    const value={setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,setGstin};
+    const [name,setName]=useState("")
+    const value={setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,setGstin,name,setName};
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto py-8">

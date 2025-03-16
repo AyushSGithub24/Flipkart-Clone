@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken") || null);
   const [user, setUser] = useState(accessToken ? jwtDecode(accessToken) : null);
   const [isLoggedIn, setIsLoggedIn] = useState(!!accessToken); // Initialize with a boolean
-
+  
   // Token expiration check
   const isTokenExpired = (token) => {
     const decoded = jwtDecode(token);
@@ -20,12 +20,17 @@ export function AuthProvider({ children }) {
   };
 
   const refreshAccessToken = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    // console.log(refreshToken);
     try {
       const response = await fetch("http://localhost:3000/refresh-token", {
         method: "POST",
         credentials: "include", // Send cookies for refresh token
+        headers: {
+          "Content-Type": "application/json",
+          ...(refreshToken && { Authorization: `Bearer ${refreshToken}` }) // Include token if available
+        },  
       });
-
       if (response.ok) {
         const data = await response.json();
         setAccessToken(data.accessToken);
@@ -49,10 +54,15 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
     try {
       await fetch("http://localhost:3000/logout", {
         method: "POST",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...(refreshToken && { Authorization: `Bearer ${refreshToken}` }) // Include token if available
+        }
       });
     } catch (error) {
       console.error("Error during logout:", error);
@@ -61,6 +71,7 @@ export function AuthProvider({ children }) {
     setUser(null);
     setIsLoggedIn(false);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken")
   };
 
   const value = {
@@ -75,6 +86,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (accessToken && isLoggedIn) {
+       refreshAccessToken();
       const interval = setInterval(() => {
         if (isTokenExpired(accessToken)) {
           refreshAccessToken();

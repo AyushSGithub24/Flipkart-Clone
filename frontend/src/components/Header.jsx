@@ -113,8 +113,7 @@ const PlusImage = styled('img')({
                     >
                       My Profile
                     </li>
-                    <li>Orders</li>
-                    <li onClick={logout}>Logout</li>
+                    <li onClick={()=>{logout()}}>Logout</li>
                   </ul>
                 </div>
               )}

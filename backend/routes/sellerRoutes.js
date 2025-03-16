@@ -2,10 +2,11 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const z = require("zod");
-const { sellerModel } = require("../db");
+const { sellerModel,productModel } = require("../db");
 const { generateAccessToken, generateRefreshToken } = require("../token");
 const sellerRouter = express.Router();
 
+//register
 sellerRouter.post("/register", async (req,res) => {
     const requiredBody = z.object({
         email: z.string().min(3).max(50).email("Invalid email format"),
@@ -24,8 +25,8 @@ sellerRouter.post("/register", async (req,res) => {
 
 
 
-  const { mobile, email, category, gstin, password } = req.body;
-  if (!email || !mobile || !category || !email || !password || !gstin) {
+  const { mobile, email, category, gstin, password, name } = req.body;
+  if (!email || !mobile || !category || !email || !password || !gstin || !name) {
     return res.status(400).json({ message: "All fields are required" });
   }
   try {
@@ -36,6 +37,7 @@ sellerRouter.post("/register", async (req,res) => {
       category,
       gstin,
       password: hashedPassword,
+      name
     });
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -50,7 +52,7 @@ sellerRouter.post("/register", async (req,res) => {
       .json({ message: "Error creating user", error: err.message });
   }
 });
-
+//login
 sellerRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
   
@@ -75,16 +77,12 @@ sellerRouter.post("/login", async (req, res) => {
       // Optionally store the refresh token in the database (or Redis)
       user.refreshToken = refreshToken;
       await user.save();
-      // Send the access token and set the refresh token in the cookie
-      res.cookie("SellerRefreshToken", refreshToken);
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken,refreshToken });
       console.log(user);
     } catch (err) {
       res.status(500).json({ message: "Error logging in", error: err.message });
     }
   });
-
-
 // forget-password
 sellerRouter.post("/forget", async (req, res) => {
   try {
@@ -147,9 +145,9 @@ sellerRouter.post('/reset-password', async (req, res) => {
 //refresh
 
 sellerRouter.post("/refresh-token", async (req, res) => {
-  // console.log(req);
-  const refreshToken = req.cookies?.SellerRefreshToken;
-  console.log(refreshToken);
+  // console.log("req headers="+req.headers.authorization);
+  const refreshToken =req.headers.authorization?.split(" ")[1] ;
+  // console.log(refreshToken);
   if (!refreshToken) {
     return res.status(401).json({ message: "Refresh token not found" });
   }
@@ -176,19 +174,18 @@ sellerRouter.post("/refresh-token", async (req, res) => {
 
 //logout
 sellerRouter.post("/logout", async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-
+  // console.log("req headers="+req.headers.authorization);
+  const refreshToken =req.headers.authorization?.split(" ")[1] ;
   if (refreshToken) {
-    const user = await userModel.findOne({ refreshToken });
+    const user = await sellerModel.findOne({ refreshToken });
     if (user) {
       user.refreshToken = null;
       await user.save();
     }
   }
-
-  res.clearCookie("refreshToken", { path: "/refresh-token" });
   res.status(200).json({ message: "Logged out successfully" });
 });
+
 
 
 

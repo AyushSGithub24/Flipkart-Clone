@@ -13,6 +13,9 @@ import ForgotPassword from "./Routes/forgotPassword";
 import Seller from "./Routes/Seller"; 
 import SellerCreateAccount from "./components/Seller/SellerCreateAccount";
 import { SellerAuthProvider } from "./Contexts/SellerAuthContext";
+import SellerDashboard from "./components/SD/SellerDashboard";
+import SellerProtectedRoute from './Routes/SellerProtectedRoute';
+
 function App() {
   return (
     <div className="App">
@@ -30,6 +33,9 @@ function App() {
             </Route>
             <Route path="/seller" element={<Seller/>}  />
             <Route path="/seller/register" element={<SellerCreateAccount/>}></Route>
+            <Route element={<SellerProtectedRoute />}>
+            <Route path="/seller/dashboard" element={<SellerDashboard/>} />
+            </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>
           </SellerAuthProvider>

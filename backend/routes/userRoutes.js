@@ -92,14 +92,15 @@ router.post("/login", async (req, res) => {
     user.refreshToken = refreshToken;
     await user.save();
     // Send the access token and set the refresh token in the cookie
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-      sameSite: "strict",
-      path: "/refresh-token",
-    });
-    res.status(200).json({ accessToken });
-    console.log(user);
+    // res.cookie("refreshToken", refreshToken, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+    //   path: "/refresh-token",
+    //   maxAge:7*24*60*60*1000,
+    //   sameSite: "strict"
+    // });
+    res.status(200).json({ accessToken,refreshToken });
+    // console.log(user);
   } catch (err) {
     res.status(500).json({ message: "Error logging in", error: err.message });
   }
@@ -169,8 +170,9 @@ router.post('/reset-password', async (req, res) => {
 //refresh
 router.post("/refresh-token", async (req, res) => {
   // console.log(req);
-  const refreshToken = req.cookies?.refreshToken;
-  console.log(refreshToken);
+  let refreshToken = req.cookies?.refreshToken || req.headers.authorization?.split(" ")[1] ;
+  // const refreshToken = req?.refreshToken;
+  // console.log(refreshToken);
   if (!refreshToken) {
     return res.status(401).json({ message: "Refresh token not found" });
   }
@@ -181,7 +183,7 @@ router.post("/refresh-token", async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET || "refresh_secret"
     );
     const user = await userModel.findById(decoded.userId);
-    console.log(user);
+    // console.log(user.refreshToken);
     if (!user || user.refreshToken !== refreshToken) {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
@@ -197,7 +199,7 @@ router.post("/refresh-token", async (req, res) => {
 
 //logout
 router.post("/logout", async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
+  let refreshToken = req.cookies?.refreshToken || req.headers.authorization?.split(" ")[1] ;
 
   if (refreshToken) {
     const user = await userModel.findOne({ refreshToken });

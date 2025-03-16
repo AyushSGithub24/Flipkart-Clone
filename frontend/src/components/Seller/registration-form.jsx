@@ -3,7 +3,7 @@ import { Box, TextField, Button, RadioGroup, FormControlLabel, Radio, Typography
 import { LocalShipping, MenuBook } from "@mui/icons-material";
 
 export function RegistrationForm({value}) {
-  const {setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,setGstin}=value;
+  const {setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,name,setName,setGstin}=value;
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -36,6 +36,19 @@ export function RegistrationForm({value}) {
               required
             />
           </Box>
+          <Box sx={{ display: "flex", mb: 2 }}>
+          <TextField
+            fullWidth
+            type="name"
+            placeholder="Name *"
+            variant="outlined"
+            size="small"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          </Box>
+          <Box>
           <TextField
             fullWidth
             type="email"
@@ -46,6 +59,7 @@ export function RegistrationForm({value}) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          </Box>
         </Box>
 
         <Box sx={{ mb: 3 }}>

@@ -53,9 +53,12 @@ export default function LoginDialog({ open, onClose }) {
       if (response.ok) {
         let data = await response.json();
         console.log(data);
+        if(data.refreshToken){
+          localStorage.setItem("SellerRefreshToken", data.refreshToken);
+        }
         login(data.accessToken)
         setIsLoggedIn(true)
-        navigate("/seller");
+        navigate("/seller/dashboard");
       } else {
         const data = await response.json();
         console.log(data);

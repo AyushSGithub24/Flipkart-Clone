@@ -27,11 +27,16 @@ export function SellerAuthProvider({ children }) {
   };
 
   const logout = async () => {
+    const refreshToken = localStorage.getItem("SellerRefreshToken");
     setIsLoading(true); // Set loading to true during logout
     try {
       await fetch("http://localhost:3000/seller/logout", {
         method: "POST",
-        credentials: "include",
+    
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${refreshToken}` // Include token if available
+        },  
       });
     } catch (error) {
       console.error("Error during logout:", error);
@@ -40,15 +45,20 @@ export function SellerAuthProvider({ children }) {
     setUser(null);
     setIsLoggedIn(false);
     localStorage.removeItem("SellerAccessToken");
+    localStorage.removeItem("SellerRefreshToken");
     setIsLoading(false); // Set loading to false after logout is complete
   };
 
   const refreshAccessToken = async () => {
+    const refreshToken = localStorage.getItem("SellerRefreshToken");
     setIsLoading(true); // Set loading to true during refresh
     try {
       const response = await fetch("http://localhost:3000/seller/refresh-token", { // Corrected URL
         method: "POST",
-        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${refreshToken}` // Include token if available
+        }, 
       });
 
       if (response.ok) {
@@ -69,6 +79,7 @@ export function SellerAuthProvider({ children }) {
 
   useEffect(() => {
     if (SellerAccessToken && isLoggedIn) {
+      refreshAccessToken();
       const interval = setInterval(() => {
         if (isTokenExpired(SellerAccessToken)) {
           refreshAccessToken();

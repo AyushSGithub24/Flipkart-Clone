@@ -35,8 +35,11 @@ function LoginForm() {
       if (response.ok) {
         // Login successful, navigate to the home page
         const data = await response.json();
-        
         login(data.accessToken)
+        console.log(data);
+        if(data.refreshToken){
+          localStorage.setItem("refreshToken", data.refreshToken);
+        }
         setIsLoggedIn(true)
         navigate("/");
       } else {
