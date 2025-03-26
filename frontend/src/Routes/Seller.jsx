@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 function Seller() {
   const navigate=useNavigate();
   const {isLoggedIn}=useSellerAuth()
-  console.log(isLoggedIn)
+  // console.log(isLoggedIn)
   useEffect(()=>{
     if(isLoggedIn){
       return navigate("/seller/dashboard") 

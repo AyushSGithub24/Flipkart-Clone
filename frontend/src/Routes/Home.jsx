@@ -5,7 +5,7 @@ import Footer from "./../components/Footer";
 import Carousel from './../components/Casrousal';
 import { getProducts } from '../redux/actions/productAction';
 import { useDispatch,useSelector } from 'react-redux';
-import Slide from '../components/slide';
+// import Slide from '../components/slide';
 import MidSection from './../components/MidSection';
 import { Box,styled } from '@mui/material';
 
@@ -17,6 +17,23 @@ function Home() {
       dispatch(getProducts())
     },[dispatch])
 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const res = await fetch("http://localhost:3000/product/67e17be6f453531978e02614");
+          if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
+          const data = await res.json();
+          console.log(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+
     return (  
       <>
         <div style={{margin:"0",width:"100%",height:"100%"}}>
@@ -24,9 +41,9 @@ function Home() {
         <Nav/>
         <main className="main-content">
         <Carousel/>
-        <MidSlide products={products} />
+        {/* <MidSlide products={products} /> */}
         <MidSection/>
-        <Slide
+        {/* <Slide
                     data={products} 
                     title='Discounts for You'
                     timer={false} 
@@ -49,7 +66,7 @@ function Home() {
                     title='Recommended Items'
                     timer={false} 
                     multi={true} 
-                />
+                /> */}
         </main>
         <Footer />
         </div>

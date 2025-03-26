@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require("cors");
 const passport = require("passport");
-const session = require("express-session");
 const PORT = 3000;
 const jwt = require("jsonwebtoken");
 const passportSetup = require("./config/passport-setup");

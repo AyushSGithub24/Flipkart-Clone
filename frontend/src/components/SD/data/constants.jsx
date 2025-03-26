@@ -67,3 +67,4 @@ export const generateSalesData = (days, trend = 'up') => {
   }
   return data;
 };
+

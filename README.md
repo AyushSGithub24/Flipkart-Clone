@@ -7,6 +7,8 @@ This is a full-stack Flipkart clone built using the MERN stack (MongoDB, Express
 - ✅ **User Authentication** (Signup, Login, Google OAuth, JWT-based authentication)
 - ✅ **Password Reset Feature** (OTP verification via email, password reset functionality)
 - ✅ **Home Page** (Carousel, Header, Footer, Product Listings)
+- ✅ **Seller Page** (Carousel, Header, Footer, Product Listings)
+- ✅ **Seller Dashboard** (Carousel, Header, Footer, Product Listings)
 - ✅ **Protected Routes** (Ensuring users can only access certain pages if logged in)
 - ✅ **Email Sending via Nodemailer** (For OTP verification)
 

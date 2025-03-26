@@ -58,9 +58,6 @@ function Header() {
                     </svg>
                   </a>
                 </div>
-                <a href="#" className="text-gray-700 hover:text-flipkart-blue">
-                  Shopsy
-                </a>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
