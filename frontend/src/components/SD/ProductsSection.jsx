@@ -7,7 +7,7 @@ import { buttonBaseClasses } from "@mui/material";
 const ProductsSection = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [products, setProducts] = useState([]);
-
+  const url=import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -15,9 +15,10 @@ const ProductsSection = () => {
   const fetchProducts = async () => {
     const token = localStorage.getItem("SellerAccessToken");
     try {
-      const response = await fetch("http://localhost:3000/seller/products", {
+      const response = await fetch(url+"/seller/products", {
         method: "GET",
         headers: {
+
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +73,7 @@ const ProductsSection = () => {
     });
 
     try {
-        const response = await fetch("http://localhost:3000/seller/product/add", {
+        const response = await fetch(url+"/seller/product/add", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`, // ✅ Remove 'Content-Type', let FormData handle it
@@ -97,7 +98,7 @@ const ProductsSection = () => {
     const token = localStorage.getItem("SellerAccessToken");
     try {
       const response = await fetch(
-        `http://localhost:3000/seller/product/update/${productId}`,
+        `${url}/seller/product/update/${productId}`,
         {
           method: "PUT",
           headers: {
@@ -126,7 +127,7 @@ const ProductsSection = () => {
     const token = localStorage.getItem("SellerAccessToken");
     try {
       const response = await fetch(
-        `http://localhost:3000/seller/product/delete/${productId}`,
+        `${url}/seller/product/delete/${productId}`,
         {
           method: "DELETE",
           headers: {
@@ -189,7 +190,7 @@ export default ProductsSection;
 //     (() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch("/public/tv.txt"); // ✅ Corrected path
+//         const response = await fetch("/public/iphone.txt"); // ✅ Corrected path
 //         const text = await response.text(); 
 //         const jsonData = JSON.parse(text);
 //         console.log(jsonData);
@@ -234,7 +235,7 @@ export default ProductsSection;
 //   formData.append("price", price);
 //   formData.append("cuttedPrice", cuttedPrice);
 //   formData.append("brand", JSON.stringify({ name: newProduct.name.split(" ")[0], logo: newProduct.brandImg }));
-//   formData.append("tags", `laptop,laptops,${newProduct.name.split(" ")[0]}`);
+//   formData.append("tags", `iphone,phone,${newProduct.name.split(" ")[0]}`);
 //   formData.append("discount", "0");
 //   formData.append("quantity", "1000");
 //   formData.append("category", "Electronics");

@@ -11,7 +11,8 @@ export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken") || null);
   const [user, setUser] = useState(accessToken ? jwtDecode(accessToken) : null);
   const [isLoggedIn, setIsLoggedIn] = useState(!!accessToken); // Initialize with a boolean
-  
+  const url=import.meta.env.VITE_API_BASE_URL;
+  const Cart=[]
   // Token expiration check
   const isTokenExpired = (token) => {
     const decoded = jwtDecode(token);
@@ -23,7 +24,7 @@ export function AuthProvider({ children }) {
     const refreshToken = localStorage.getItem("refreshToken");
     // console.log(refreshToken);
     try {
-      const response = await fetch("http://localhost:3000/refresh-token", {
+      const response = await fetch(url+"/refresh-token", {
         method: "POST",
         credentials: "include", // Send cookies for refresh token
         headers: {
@@ -56,7 +57,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
     try {
-      await fetch("http://localhost:3000/logout", {
+      await fetch(url+"/logout", {
         method: "POST",
         credentials: "include",
         headers: {

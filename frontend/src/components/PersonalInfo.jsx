@@ -5,7 +5,8 @@ import { useAuth } from "../Contexts/AuthContext";
 import DeleteAccountModal from "./DeleteAccountModal";
 
 function PersonalInfo() {
-  const { data, loading, error } = useFetch("http://localhost:3000/account");
+  const url=import.meta.env.VITE_API_BASE_URL;
+  const { data, loading, error } = useFetch(url+"/account");
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -51,7 +52,7 @@ function PersonalInfo() {
         alert("Invalid Phone no");
         return;
       }
-      const response = await fetch("http://localhost:3000/account", {
+      const response = await fetch(url+"/account", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +72,7 @@ function PersonalInfo() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch("http://localhost:3000/account/delete", {
+      const response = await fetch(url+"/account/delete", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,

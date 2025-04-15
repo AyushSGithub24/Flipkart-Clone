@@ -29,7 +29,8 @@ router.post("/signup", async (req, res) => {
   
   if (!parsedData.success) {
     // Organizing errors by field
-    const fieldErrors = parsedData.error.issues.reduce((acc, issue) => {
+    const fieldErrors = parsedData.error.issues.reduce((
+      acc , issue) => {
       const field = issue.path[0]; // Get the field name
       if (!acc[field]) {
         acc[field] = [];

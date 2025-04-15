@@ -3,7 +3,8 @@ import "./AddressManager.css";
 import useFetch from './../Hooks/use-fetch';
 import { useAuth } from "../Contexts/AuthContext";
 function ManageAddress() {
-  const { data, loading, error } = useFetch("http://localhost:3000/account/address");
+  const url=import.meta.env.VITE_API_BASE_URL;
+  const { data, loading, error } = useFetch(url+"/account/address");
   const [addresses, setAddresses] = useState([]||data);
   useEffect(() => {
     if (data) setAddresses(data);
@@ -37,7 +38,7 @@ function ManageAddress() {
     }
 
     try {
-      const response=await fetch("http://localhost:3000/account/address",{
+      const response=await fetch(url+"/account/address",{
         method:"PUT",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +82,7 @@ function ManageAddress() {
     // Update state
     setAddresses(updatedAddresses);  
     try {
-      const response = await fetch("http://localhost:3000/account/address", {
+      const response = await fetch(url+"/account/address", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

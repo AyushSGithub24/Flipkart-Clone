@@ -10,12 +10,12 @@ function LoginForm() {
   const [error, setError] = useState("");
   const navigate = useNavigate(); 
   const {login,setIsLoggedIn}=useAuth();
-
+  const url=import.meta.env.VITE_API_BASE_URL;
 
   const handleGoogleLogin = async () => {
     try {
       // Initiating Google OAuth flow by redirecting to backend OAuth URL
-      window.location.href = "http://localhost:3000/auth/google"; // Redirect to backend OAuth route
+      window.location.href = url+"/auth/google"; // Redirect to backend OAuth route
     } catch (err) {
       console.error("Google login failed", err);
     }
@@ -24,7 +24,7 @@ function LoginForm() {
     e.preventDefault();
     setError(""); // Clear any previous errors
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(url+"/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

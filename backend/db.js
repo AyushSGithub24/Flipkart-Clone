@@ -16,6 +16,12 @@ const user = new Schema({
     type: String,
     enum: ["male", "female", "others"], // Corrected enum definition
   },
+  Cart:[
+    {
+      productId: { type: Schema.Types.ObjectId, ref: "Product" },
+      quantity: { type: Number, required: true, min: 1 },
+    }
+  ]
 });
 const userModel = mongoose.model("user", user);
 
@@ -82,7 +88,7 @@ const orderSchema = new Schema({
       quantity: { type: Number, required: true, min: 1 },
       price: { type: Number, required: true, min: 0 },
     },
-  ],
+  ], 
   totalAmount: { type: Number, required: true, min: 0 },
   status: {
     type: String,

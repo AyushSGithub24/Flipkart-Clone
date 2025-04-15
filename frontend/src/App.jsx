@@ -15,6 +15,8 @@ import SellerCreateAccount from "./components/Seller/SellerCreateAccount";
 import { SellerAuthProvider } from "./Contexts/SellerAuthContext";
 import SellerDashboard from "./components/SD/SellerDashboard";
 import SellerProtectedRoute from './Routes/SellerProtectedRoute';
+import CategoryPage from "./Routes/CategoryPage";
+import ProductDetails from "./Routes/ProductDetail";
 
 function App() {
   return (
@@ -22,8 +24,10 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <SellerAuthProvider>
-          <Routes>
+          <Routes> 
             <Route path="/" element={<Home />} />
+            <Route path="/category" element={<CategoryPage />} />
+            <Route path="/productDetail" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/oauth" element={<OAuthCallback />} />

@@ -9,7 +9,7 @@ function Signup() {
   const [error, setError] = useState("");
   const [errors, setErrors] = useState({}); // Ensuring it's always an object
   const navigate = useNavigate();
-
+  const url=import.meta.env.VITE_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -19,7 +19,7 @@ function Signup() {
     console.log("Request body:", requestBody); // Debugging log
 
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch(url+"/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -46,7 +46,7 @@ function Footer() {
         ))}
       </div>
       <div className="footer-bottom">
-        <p>© 2007-2025 Flipkart.com</p>
+        <p>© 2007-{new Date().getFullYear()} Flipkart.com</p>
       </div>
     </footer>
   )

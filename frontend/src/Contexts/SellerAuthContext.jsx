@@ -12,7 +12,7 @@ export function SellerAuthProvider({ children }) {
   const [user, setUser] = useState(SellerAccessToken ? jwtDecode(SellerAccessToken) : null);
   const [isLoggedIn, setIsLoggedIn] = useState(!!SellerAccessToken);
   const [isLoading, setIsLoading] = useState(true); // Added loading state
-
+  const url=import.meta.env.VITE_API_BASE_URL;
   const isTokenExpired = (token) => {
     const decoded = jwtDecode(token);
     const currentTime = Date.now() / 1000;
@@ -30,7 +30,7 @@ export function SellerAuthProvider({ children }) {
     const refreshToken = localStorage.getItem("SellerRefreshToken");
     setIsLoading(true); // Set loading to true during logout
     try {
-      await fetch("http://localhost:3000/seller/logout", {
+      await fetch(url+"/seller/logout", {
         method: "POST",
     
         headers: {
@@ -53,7 +53,7 @@ export function SellerAuthProvider({ children }) {
     const refreshToken = localStorage.getItem("SellerRefreshToken");
     setIsLoading(true); // Set loading to true during refresh
     try {
-      const response = await fetch("http://localhost:3000/seller/refresh-token", { // Corrected URL
+      const response = await fetch(url+"/seller/refresh-token", { // Corrected URL
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,6 +108,7 @@ export function SellerAuthProvider({ children }) {
     login,
     logout,
     user,
+    url,
     isLoading, // Added loading state to value
   };
 

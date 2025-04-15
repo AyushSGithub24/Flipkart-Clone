@@ -18,8 +18,8 @@ function Navigation() {
     <nav className="category-nav">
       <div className="container">
         <ul>
-          {categories.map((category) => (
-            <li key={category}>
+          {categories.map((category,idx) => (
+            <li key={idx}>
               <button>{category}</button>
             </li>
           ))}
