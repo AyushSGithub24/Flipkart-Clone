@@ -39,11 +39,12 @@ export default function LoginDialog({ open, onClose }) {
   const [error, setError] = useState("");
   const { login, setIsLoggedIn } = useSellerAuth();
   const navigate = useNavigate(); 
+  const url=import.meta.env.VITE_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login attempt with:", email, password);
     try {
-      const response = await fetch("http://localhost:3000/seller/login", {
+      const response = await fetch(url+"/seller/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

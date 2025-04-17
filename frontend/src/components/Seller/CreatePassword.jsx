@@ -3,6 +3,7 @@ import { Box, TextField, Button, Typography, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export function CreatePassword({value}) {
+  const url=import.meta.env.VITE_API_BASE_URL;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const {setStep,category,setCategory,mobile,setMobile,email,setEmail,gstin,name,setGstin}=value;
@@ -17,7 +18,7 @@ export function CreatePassword({value}) {
     }
     const formData = { mobile, email, category, gstin,password ,name};
     try {
-      const response = await fetch("http://localhost:3000/seller/register", {
+      const response = await fetch(url+"/seller/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
