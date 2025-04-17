@@ -30,7 +30,7 @@ async function main() {
   app.use(express.json()); // Added to parse JSON in body
   // Middleware to parse cookies
   app.use(cookieParser());
-  //user route
+  //user routen  
   app.use("/", router);
   //google Callback route
   app.use("/auth", Googlerouter);
