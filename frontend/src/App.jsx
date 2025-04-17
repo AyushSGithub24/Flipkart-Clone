@@ -9,7 +9,7 @@ import OAuthCallback from "./Routes/OAuthCallback";
 import MyProfile from "./Routes/MyProfile"; 
 import "./App.css";
 import ProtectedRoute from "./Routes/ProtectedRoute";
-import ForgotPassword from "./Routes/forgotPassword";
+import ForgotPassword from "./Routes/ForgotPassword";
 import Seller from "./Routes/Seller"; 
 import SellerCreateAccount from "./components/Seller/SellerCreateAccount";
 import { SellerAuthProvider } from "./Contexts/SellerAuthContext";
