@@ -38,7 +38,7 @@ function Product({ product }) {
   
   const addCart=async (product,quantity) => {
     try {
-      const response=await fetch(`${url}/product//addToCart/${product._id}/${quantity}`,{
+      const response=await fetch(`${url}/product/addToCart/${product._id}/${quantity}`,{
         method:"POST",
         headers: {
           "Content-Type": "application/json",
