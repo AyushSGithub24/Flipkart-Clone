@@ -22,7 +22,7 @@ async function main() {
   // Allow requests from specific origin (frontend)
   app.use(
     cors({
-      origin: "http://localhost:5173", // Frontend URL
+      origin: process.env.FrontendURL, // Frontend URL
       methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
       credentials: true, // Allow cookies or authorization headers
     })
@@ -64,7 +64,7 @@ async function main() {
 
         // Redirect the user to the frontend with the access token as part of the URL
         // Optionally, you can also append the token to the frontend URL as a query parameter
-        res.redirect(`http://localhost:5173/oauth/?accessToken=${accessToken}`);
+        res.redirect(`${process.env.FrontendURL}/oauth/?accessToken=${accessToken}`);
       } catch (err) {
         console.error("Error during Google OAuth:", err);
         res

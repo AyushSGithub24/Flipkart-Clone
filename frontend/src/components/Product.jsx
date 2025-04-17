@@ -7,6 +7,8 @@ import {
   Info,
   ArrowRight,
 } from "lucide-react";
+import { useAuth } from "../Contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 function Product({ product }) {
   const [mainImage, setMainImage] = React.useState(product.images[0]);
   const [showAllHighlights, setShowAllHighlights] = useState(false);
@@ -16,11 +18,39 @@ function Product({ product }) {
   const discountPercentage = Math.round(
     ((product.cuttedPrice - product.price) / product.cuttedPrice) * 100
   );
-
+  const url=import.meta.env.VITE_API_BASE_URL;
   // Display only first 3 highlights by default
   const displayHighlights = showAllHighlights
     ? product.highlights
     : product.highlights.slice(0, 3);
+  const navigate=useNavigate();  
+
+    const { isLoggedIn,accessToken }=useAuth();
+
+  function addToCart(){
+    if(!isLoggedIn){
+      navigate("/login")
+    }else{
+      addCart(product,1);
+      navigate("/cart")
+    }
+  }
+  
+  const addCart=async (product,quantity) => {
+    try {
+      const response=await fetch(`${url}/product//addToCart/${product._id}/${quantity}`,{
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(accessToken && { Authorization: `Bearer ${accessToken}` }), // Include token if available
+        },
+      });
+      const data=await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding to Cart",error)
+    }
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-4 bg-white">
@@ -83,7 +113,9 @@ function Product({ product }) {
 
               {/* Action Buttons */}
               <div className="flex gap-3 mt-4">
-                <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-md font-medium flex items-center justify-center">
+                <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-md font-medium flex items-center justify-center" onClick={()=>{
+                  addToCart()
+                }} >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 mr-2"

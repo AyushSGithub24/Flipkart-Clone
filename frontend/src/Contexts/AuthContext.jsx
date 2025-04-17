@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(accessToken ? jwtDecode(accessToken) : null);
   const [isLoggedIn, setIsLoggedIn] = useState(!!accessToken); // Initialize with a boolean
   const url=import.meta.env.VITE_API_BASE_URL;
-  const Cart=[]
+  
   // Token expiration check
   const isTokenExpired = (token) => {
     const decoded = jwtDecode(token);
@@ -75,6 +75,9 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("refreshToken")
   };
 
+
+  const [cart,setCart]=useState([])
+
   const value = {
     accessToken,
     setAccessToken,
@@ -83,17 +86,20 @@ export function AuthProvider({ children }) {
     login,
     logout,
     user,
+    cart,
+    setCart
   };
 
   useEffect(() => {
     if (accessToken && isLoggedIn) {
-       refreshAccessToken();
+       refreshAccessToken()
       const interval = setInterval(() => {
         if (isTokenExpired(accessToken)) {
           refreshAccessToken();
+          
         }
+      
       }, 1 * 60 * 1000); // Check every minute
-
       return () => clearInterval(interval);
     }
   }, [accessToken, isLoggedIn]);
@@ -102,6 +108,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("accessToken");
     if (token && !isLoggedIn) {
       setIsLoggedIn(true); // Update state to keep user logged in if token exists
+      
     }
   }, [isLoggedIn]);
 

@@ -320,7 +320,7 @@ router.delete("/account/delete",authenticateToken,async (req,res)=>{
     const user=await userModel.findByIdAndDelete(uId)
     res.sendStatus(200)
   } catch (error) {
-     console.error("Error retrieving user:", error);
+    console.error("Error retrieving user:", error);
     res.status(500).json({
       message: "An error occurred while Deleting user data",
     });

@@ -436,7 +436,7 @@ function Header() {
           </div>
 
           {/* Cart */}
-          <div className="nav-item cart">
+          <div className="nav-item cart" onClick={()=>{isLoggedIn?navigate("/cart"):navigate("/login")}} >
             <svg
               className="cart-icon"
               width="16"

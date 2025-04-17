@@ -17,6 +17,7 @@ import SellerDashboard from "./components/SD/SellerDashboard";
 import SellerProtectedRoute from './Routes/SellerProtectedRoute';
 import CategoryPage from "./Routes/CategoryPage";
 import ProductDetails from "./Routes/ProductDetail";
+import Cart from "./Routes/Cart";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/forget" element={<ForgotPassword/>}/>
             <Route element={<ProtectedRoute />}>
               <Route path="/account" element={<MyProfile />} />
+              <Route path="/cart" element={<Cart />} />
             </Route>
             <Route path="/seller" element={<Seller/>}  />
             <Route path="/seller/register" element={<SellerCreateAccount/>}></Route>
