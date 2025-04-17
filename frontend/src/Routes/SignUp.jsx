@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from "./../components/Header";
 import Navigation from "./../components/Navigation";
-import Signup from "./../components/signup";
+import Signup from "./../components/Signup";
 import Footer from "./../components/Footer";
 function SignUp() {
     return (
