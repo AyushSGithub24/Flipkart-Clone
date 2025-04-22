@@ -76,7 +76,7 @@ export function AuthProvider({ children }) {
   };
 
 
-  const [cart,setCart]=useState([])
+  const [cart,setCart]=useState([])   
 
   const value = {
     accessToken,

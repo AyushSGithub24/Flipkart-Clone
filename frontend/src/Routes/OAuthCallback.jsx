@@ -12,8 +12,10 @@ const OAuthCallback = () => {
     
     const queries = queryString.parse(window.location.search);
     const token=queries.accessToken
-    console.log("query parmeter",queries);
-    console.log(token);
+    const refreshToken=queries.refreshToken
+    localStorage.setItem("refreshToken", refreshToken);
+    // console.log("query parmeter",queries);
+    // console.log("refresh token "+refreshToken);
     if (token) {
       // Store the token in localStorage
       login(token)

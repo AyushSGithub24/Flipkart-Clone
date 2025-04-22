@@ -124,7 +124,7 @@ productRouter.post("/addToCart/:productId/:quantity",authenticateToken,async (re
 productRouter.post("/removeFromCart/:productId/:quantity", authenticateToken, async (req, res) => {
   const uId = req.userId;
   const { productId, quantity } = req.params;
-
+  
   try {
     const user = await userModel.findById(uId);
     if (!user) return res.status(403).json({ message: "User not found" });
@@ -153,18 +153,27 @@ productRouter.post("/removeFromCart/:productId/:quantity", authenticateToken, as
 productRouter.post("/updateCartQuantity", authenticateToken, async (req, res) => {
   const uId = req.userId;
   const { productId, quantity } = req.body;
-
+  console.log("cart hit");
   if (quantity < 1) return res.status(400).json({ message: "Quantity must be at least 1" });
 
   try {
     const user = await userModel.findById(uId);
     if (!user) return res.status(403).json({ message: "User not found" });
+    let item=-1;
+    console.log(user);
+    console.log(productId);
+    const product=await productModel.findById(productId)
+    console.log(product);
+    for(let i of user.Cart){
+      if(i._id==productId){
+        item=i
+        break
+      }
+    }
 
-    const item = user.Cart.find(item => item.productId.toString() === productId);
-    if (!item) return res.status(404).json({ message: "Product not in cart" });
+    if (item==-1) return res.status(404).json({ message: "Product not in cart" });
 
     item.quantity = quantity;
-
     await user.save();
     return res.status(200).json({ message: "Quantity updated", cart: user.Cart });
   } catch (err) {
@@ -183,12 +192,18 @@ productRouter.delete("/removeItem/:productId", authenticateToken, async (req, re
     if (!user) return res.status(403).json({ message: "User not found" });
 
     const initialLength = user.Cart.length;
-    user.Cart = user.Cart.filter(item => item.productId.toString() !== productId);
-
-    if (user.Cart.length === initialLength) {
-      return res.status(404).json({ message: "Product not found in cart" });
+    let idx=-1;
+    for(let i=0;i<initialLength;i++){
+      if(user.Cart[i]._id==productId){
+        idx=i;
+      }
     }
 
+    if (idx==-1) {
+      return res.status(404).json({ message: "Product not found in cart" });
+    }
+    const arr=user.Cart
+    arr.splice(idx,1)
     await user.save();
     return res.status(200).json({ message: "Item removed", cart: user.Cart });
   } catch (err) {

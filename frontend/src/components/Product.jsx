@@ -32,7 +32,7 @@ function Product({ product }) {
       navigate("/login")
     }else{
       addCart(product,1);
-      navigate("/cart")
+      
     }
   }
   
@@ -47,6 +47,7 @@ function Product({ product }) {
       });
       const data=await response.json();
       console.log(data);
+      navigate("/cart")
     } catch (error) {
       console.error("Error adding to Cart",error)
     }

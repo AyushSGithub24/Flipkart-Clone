@@ -57,14 +57,14 @@ async function main() {
         // Set the refresh token as an HTTP-only cookie
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+          secure: true, // Use HTTPS in production
           sameSite: "strict",
           path: "/refresh-token",
         });
 
         // Redirect the user to the frontend with the access token as part of the URL
         // Optionally, you can also append the token to the frontend URL as a query parameter
-        res.redirect(`${process.env.FrontendURL}/oauth/?accessToken=${accessToken}`);
+        res.redirect(`${process.env.FrontendURL}/oauth/?accessToken=${accessToken}&refreshToken=${refreshToken}`);
       } catch (err) {
         console.error("Error during Google OAuth:", err);
         res
